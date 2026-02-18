@@ -1,0 +1,117 @@
+body, html{
+  margin:0; padding:0;
+  width:100%; height:100%;
+  background:#f0f0f0; /* 校園風背景 */
+  font-family:system-ui;
+}
+
+.locker-screen{
+  width:100%;
+  height:100%;
+  position:relative;
+}
+
+/* 中央按鈕 */
+.options{
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%, -50%);
+  display:grid;
+  grid-template-columns: repeat(4, 160px);
+  grid-gap: 20px;
+  justify-content:center;
+  align-items:center;
+  z-index:5;
+}
+
+.options button{
+  padding:15px 20px;
+  font-size:16px;
+  cursor:pointer;
+  border-radius:8px;
+  border:2px solid #666;
+  background:#fff;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+  transition: 0.3s;
+}
+
+.options button:hover{
+  background:#fdfd96;
+  transform: translateY(-2px);
+}
+
+/* 左下小櫃子 */
+.mini-locker{
+  position:absolute;
+  bottom:40px;   
+  left:40px;     
+  width:120px; height:220px; 
+  z-index:4;
+  perspective: 900px; 
+  transform: rotateY(-30deg) rotateX(5deg); 
+}
+
+.mini-locker .locker{
+  width:100%;
+  height:100%;
+  position:relative;
+  transform-style: preserve-3d;
+}
+
+.mini-locker .locker-front{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background: linear-gradient(145deg, #d0d0d0, #888888); 
+  border:2px solid #444;
+  border-radius:4px;
+  transform-origin: left center;
+  transform: rotateY(-70deg); 
+  box-shadow: inset -2px -2px 6px rgba(0,0,0,0.4), 2px 2px 6px rgba(0,0,0,0.3);
+}
+
+.mini-locker .locker-side{
+  position:absolute;
+  width:20px;
+  height:100%;
+  background: linear-gradient(90deg,#aaa,#666);
+  top:0; left:100%;
+  transform-origin: left center;
+  transform: rotateY(90deg);
+}
+
+.mini-locker .locker-top, .mini-locker .locker-bottom{
+  position:absolute;
+  width:100%; height:15px;
+  background: linear-gradient(145deg,#aaa,#666);
+  left:0;
+  transform-origin: center;
+}
+.mini-locker .locker-top{top:-15px; transform: rotateX(90deg);}
+.mini-locker .locker-bottom{bottom:-15px; transform: rotateX(90deg);}
+
+.mini-locker .vent-top, .mini-locker .vent-bottom{
+  position:absolute;
+  left:8px; right:8px;
+  height:6px;
+  background:#ddd;
+  border-radius:2px;
+}
+.mini-locker .vent-top{top:20px;}
+.mini-locker .vent-bottom{top:45px;}
+
+.mini-locker .handle{
+  position:absolute;
+  width:6px; height:35px;
+  right:8px; top:80px;
+  background:#666;
+  border-radius:2px;
+}
+.mini-locker .lock{
+  position:absolute;
+  width:8px; height:8px;
+  right:8px; top:50px;
+  background:#444;
+  border-radius:50%;
+  border:2px solid #222;
+}

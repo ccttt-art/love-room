@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>吵架守則</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <style>
+  body {
+    margin: 0;
+    font-family: "Noto Sans TC", system-ui, -apple-system, BlinkMacSystemFont;
+    background: #f2f2f2;
+    color: #111;
+    line-height: 1.7;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: auto;
+    padding: 32px 20px 80px;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 6px;
+    font-weight: 600;
+    letter-spacing: 2px;
+  }
+
+  h2 {
+    margin-top: 36px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-left: 3px solid #111;
+    padding-left: 12px;
+  }
+
+  p {
+    margin: 8px 0;
+  }
+
+  .card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 22px;
+    margin-top: 16px;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+    transition: 0.2s ease;
+  }
+
+  .card:hover {
+    box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+  }
+
+  ul {
+    padding-left: 20px;
+  }
+
+  li {
+    margin: 8px 0;
+  }
+
+  .checklist label {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+    cursor: pointer;
+  }
+
+  input[type="checkbox"] {
+    transform: scale(1.2);
+    accent-color: #111;
+  }
+
+  .pause-box {
+    background: #f7f7f7;
+    border-radius: 14px;
+    padding: 16px;
+    margin-top: 12px;
+    border: 1px solid #e5e5e5;
+  }
+
+  button {
+    display: block;
+    width: 100%;
+    margin-top: 14px;
+    padding: 13px;
+    border-radius: 12px;
+    border: 1px solid #111;
+    font-size: 0.95rem;
+    background: #111;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.2s ease;
+    letter-spacing: 1px;
+  }
+
+  button:hover {
+    background: #fff;
+    color: #111;
+  }
+
+  button:active {
+    transform: scale(0.98);
+  }
+
+  textarea,
+  input[type="text"],
+  input[type="number"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #d9d9d9;
+    margin-top: 6px;
+    font-family: inherit;
+    background: #fafafa;
+    transition: 0.2s ease;
+  }
+
+  textarea:focus,
+  input:focus {
+    outline: none;
+    border-color: #111;
+    background: #fff;
+  }
+
+  pre {
+    white-space: pre-wrap;
+    font-family: inherit;
+  }
+
+  .result {
+    margin-top: 14px;
+    background: #f7f7f7;
+    padding: 14px;
+    border-radius: 14px;
+    border: 1px solid #e5e5e5;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 0.85rem;
+    color: #777;
+    letter-spacing: 1px;
+  }
+</style>
+
+</head>
+
+<body>
+  <div class="container">
+    <h1>吵架守則</h1>
+    <p style="text-align:center;">不是為了吵贏，而是為了走下去。</p>
+
+    <!-- 吵架前 -->
+    <h2>一、吵架前共識</h2>
+    <div class="card checklist">
+      <label><input type="checkbox"> 不翻舊帳（超過一個月不提）</label>
+      <label><input type="checkbox"> 不貼標籤（你每次都、你就是）</label>
+      <label><input type="checkbox"> 不冷暴力（超過3小時一定回）</label>
+      <label><input type="checkbox"> 情緒太滿可以喊停，但一定回來談</label>
+      <hr />
+      <label><input type="checkbox"> 我現在不是想吵贏</label>
+      <label><input type="checkbox"> 我願意聽對方說完</label>
+    </div>
+
+    <!-- 進行中 -->
+    <h2>二、吵架進行中守則</h2>
+    <div class="card">
+      <strong>✅ 可以做的事</strong>
+      <ul>
+        <li>用「我感覺到……」開頭</li>
+        <li>一次只講一件事</li>
+        <li>聽完再回，不插話</li>
+      </ul>
+      <strong>❌ 絕對禁止</strong>
+      <ul>
+        <li>人身攻擊</li>
+        <li>消失不回</li>
+        <li>威脅分手</li>
+        <li>把對方的脆弱當武器</li>
+      </ul>
+    </div>
+
+    <!-- 暫停 -->
+    <h2>三、情緒紅燈</h2>
+<div class="card">
+    <ol>
+        <li>當快失控時，按下暫停：</li>
+        <li>雙方同意後暫停</li>
+        <li>一定要回來（不回來＝違規）</li>
+      </ol>
+<label>我要冷靜幾分鐘？
+<input type="number" id="pauseMin" placeholder="例如：30"></label>
+<br><label>想對對方說的話:</br>
+<textarea id="pauseMsg" rows="3" placeholder="我現在情緒有點滿，想冷靜一下，等等回來。"></textarea></label>
+<button onclick="generatePauseLink()">⏸ 我要暫停</button>
+<div id="pauseResult" class="result"></div>
+    <!-- 吵架後 -->
+  <h2>四、吵架後修復</h2>
+<div class="card">
+  <p>必做三步驟：</p>
+  <ol>
+    <li>我為＿＿＿道歉（不加但是）</li>
+    <li>我理解你＿＿＿</li>
+    <li>下次我可以＿＿＿</li>
+  </ol>
+
+  <textarea id="repairMsg" rows="4" placeholder="在這裡寫修復訊息…"></textarea>
+
+<button onclick="generateRepairLink()">
+    生成可分享連結
+</button>
+
+
+  <div id="repairResult" style="display:none;margin-top:12px;background:#eef0ff;padding:12px;border-radius:10px;"></div>
+</div>
+
+<script>
+// 修復訊息
+function generateRepairLink(){
+const msg=document.getElementById("repairMsg").value;
+if(!msg){alert("請先填寫修復訊息 🤍");return;}
+const params=new URLSearchParams({r:msg});
+const link=location.origin+location.pathname+"?"+params.toString();
+const text=`📝 修復訊息分享\n${msg}\n點擊查看：${link}`;
+const resultDiv=document.getElementById("repairResult");
+resultDiv.style.display="block";
+resultDiv.innerHTML=`<strong>可分享連結：</strong><br>${link}<br><br><strong>可貼文字：</strong><br><pre>${text}</pre>`;
+}
+</script>
+
+
+    <!-- 違規 -->
+    <h2>五、違規懲罰</h2>
+    <div class="card">
+      <ul>
+        <li>冷暴力 → 請喝飲料一次</li>
+        <li>翻舊帳 → 主動抱抱 30 秒</li>
+        <li>消失超時 → 寫一段修復訊息</li>
+      </ul>
+    </div>
+
+    <!-- 專屬 -->
+    <h2>六、我們的專屬約定</h2>
+    <div class="card">
+      <label>最怕吵架時被怎麼對待：</label>
+      <br><label>1.出言攻擊</label></br>
+      <label>2.不說話</label>
+      <br><label>最需要的安撫方式：</label></br>
+      <label>1.先抱抱再說</label>
+      <br><label>2.吵架修復語言</label></br>
+      <label>吵完後不希望得到的是：</label>
+      <br><label>1.悶在心裡越來越遠</label></br>
+    </div>
+
+    <h2>七、日後回顧</h2>
+    <div class="card">
+    <p>可寫下今天的情緒感受，紀錄可生成連結分享：</p>
+    <textarea id="reviewMsg" rows="4" placeholder="今天的情緒 / 反思 / 下次改進…"></textarea>
+    <button onclick="generateReviewLink()">生成回顧分享連結</button>
+    <div id="reviewResult" class="result"></div>
+    </div>
+
+    <div class="footer">
+      我們允許彼此不完美，但不允許彼此不被珍惜。
+    </div>
+  </div>
+
+
+<script>
+// 暫停鍵連結
+function generatePauseLink(){
+const min=document.getElementById("pauseMin").value;
+const msg=document.getElementById("pauseMsg").value;
+if(!min){alert("請填冷靜時間 🤍");return;}
+const params=new URLSearchParams({m:min,t:msg});
+const link=location.origin+location.pathname+"?"+params.toString();
+const text=`⏸ 我按下暫停鍵了\n我需要冷靜 ${min} 分鐘\n${msg||""}\n我會回來，不是逃避。`;
+const resultDiv=document.getElementById("pauseResult");
+resultDiv.style.display="block";
+resultDiv.innerHTML=`<strong>可分享連結：</strong><br>${link}<br><br><strong>可貼文字：</strong><br><pre>${text}</pre>`;
+}
+
+// 日後回顧
+function generateReviewLink(){
+const msg=document.getElementById("reviewMsg").value;
+if(!msg){alert("請先填寫回顧內容 🤍");return;}
+const params=new URLSearchParams({v:msg});
+const link=location.origin+location.pathname+"?"+params.toString();
+const text=`📖 回顧日記\n${msg}\n點擊查看：${link}`;
+const resultDiv=document.getElementById("reviewResult");
+resultDiv.style.display="block";
+resultDiv.innerHTML=`<strong>可分享連結：</strong><br>${link}<br><br><strong>可貼文字：</strong><br><pre>${text}</pre>`;
+}
+
+// 顯示對方打開的暫停 / 修復 / 回顧訊息
+const url=new URL(location.href);
+const m=url.searchParams.get("m");
+const t=url.searchParams.get("t");
+const r=url.searchParams.get("r");
+const v=url.searchParams.get("v");
+if(m||t){
+document.body.innerHTML=`
+<div style="max-width:520px;margin:40px auto;background:#fff;padding:20px;border-radius:16px;text-align:center;font-family:Noto Sans TC;">
+<h2>⏸ 對方正在冷靜</h2>
+<p>需要 <strong>${m}</strong> 分鐘</p>
+<div style="background:#eef0ff;padding:12px;border-radius:10px;margin-top:10px;">${t||"不是不理你，是想好好處理情緒。"}</div>
+<p style="color:#666;margin-top:12px;">請給對方一點時間 🤍</p>
+</div>`;
+}
+if(r){
+document.body.innerHTML=`
+<div style="max-width:520px;margin:40px auto;background:#fff;padding:20px;border-radius:16px;text-align:center;font-family:Noto Sans TC;">
+<h2>📝 修復訊息</h2>
+<p style="background:#eef0ff;padding:12px;border-radius:10px;">${r}</p>
+<p style="color:#666;margin-top:12px;">請先閱讀，再好好回應 🤍</p>
+</div>`;
+}
+if(v){
+document.body.innerHTML=`
+<div style="max-width:520px;margin:40px auto;background:#fff;padding:20px;border-radius:16px;text-align:center;font-family:Noto Sans TC;">
+<h2>📖 回顧日記</h2>
+<p style="background:#eef0ff;padding:12px;border-radius:10px;">${v}</p>
+<p style="color:#666;margin-top:12px;">閱讀後可反思與成長 🤍</p>
+</div>`;
+}
+</script>
+
+</body>
+</html>

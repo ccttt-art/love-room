@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Space</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Noto Serif TC', serif;
+}
+
+body{
+    background:#ffffff;
+    color:#111;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+h1{
+    font-weight:300;
+    letter-spacing:4px;
+    margin-bottom:50px;
+    font-size:28px;
+}
+
+.container{
+    display:grid;
+    grid-template-columns: repeat(2, 200px);
+    gap:25px;
+}
+
+button{
+    width:200px;
+    height:60px;
+    border:1px solid #111;
+    background:transparent;
+    color:#111;
+    font-size:16px;
+    letter-spacing:2px;
+    cursor:pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover{
+    background:#111;
+    color:#fff;
+}
+
+a{
+    text-decoration:none;
+}
+
+.footer{
+    position:absolute;
+    bottom:30px;
+    font-size:12px;
+    letter-spacing:2px;
+    opacity:0.6;
+}
+</style>
+</head>
+
+<body>
+
+<h1>OUR MEMORY SPACE</h1>
+
+<div class="container">
+
+<a href="peaceRoll.html"><button>和好卷</button></a>
+<a href="gift.html"><button>禮物清單</button></a>
+<a href="video.html"><button>生日影片</button></a>
+<a href="dolist.html"><button>情侶共同清單</button></a>
+<a href="rules.html"><button>吵架守則</button></a>
+
+</div>
+
+<div class="footer">
+CJT & ZY
+</div>
+
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>和好券系統</title>
+<style>
+body {
+  font-family: "Noto Sans TC","微軟正黑體", sans-serif;
+  padding:20px;
+  margin:0;
+  background: #f5f5f5;
+  color:#111;
+}
+
+/* Header */
+.header { 
+  text-align:center; 
+  margin-bottom:30px; 
+}
+.header h2 { 
+  font-size:28px; 
+  margin-bottom:8px; 
+  letter-spacing:2px;
+}
+.header p { 
+  font-size:16px; 
+  color:#555;
+}
+
+/* 主要容器 */
+.container {
+  display:flex;
+  justify-content:space-between;
+  max-width:900px;
+  margin:auto;
+  gap:20px;
+}
+
+/* 卡片風格 */
+.voucher-box {
+  width:48%;
+  background:#ffffff;
+  padding:25px;
+  border-radius:20px;
+  border:1px solid #e0e0e0;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.voucher-box:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+
+h2, h3 { 
+  text-align:center; 
+  margin-bottom:15px; 
+  letter-spacing:1px;
+}
+
+/* 按鈕 */
+button { 
+  background:#111; 
+  color:white; 
+  border:none; 
+  padding:10px 18px; 
+  margin:5px 0; 
+  border-radius:0px;  
+  cursor:pointer; 
+  font-weight:500;
+  letter-spacing:1px;
+  transition:all 0.25s ease;
+}
+
+button:hover{ 
+  background:#000; 
+  transform: translateY(-1px);
+}
+
+button:active{
+  transform: translateY(0);
+  background:#222;
+}
+
+
+/* 輸入框 */
+input[type="number"], 
+input[type="text"] {
+  width:calc(60% - 10px);
+  padding:6px 10px;
+  margin-right:5px;
+  border-radius:20px;
+  border:1px solid #ccc;
+  background:#fafafa;
+}
+
+/* 好互動輸入區 */
+.good-input-container {
+  display:flex;
+  gap:8px;
+  margin-bottom:15px;
+}
+.good-input-container button { flex:1; }
+.good-input-container input { flex:2; }
+
+/* 紀錄區 */
+#goodList, 
+#log {
+  background:#fafafa;
+  border:1px solid #e0e0e0;
+  border-radius:15px;
+  padding:12px;
+  max-height:200px;
+  overflow-y:auto;
+}
+
+.log-item{ 
+  margin-bottom:6px; 
+  font-size:13px; 
+  color:#444;
+}
+
+.good-item{ 
+  margin-bottom:8px; 
+  font-size:14px; 
+  font-weight:500; 
+}
+
+/* 聊天泡泡 */
+.good-bubble {
+  max-width:70%;
+  padding:8px 12px;
+  border-radius:20px;
+  margin:6px 0;
+  font-size:14px;
+  clear:both;
+  display:inline-block;
+  word-wrap:break-word;
+}
+
+.left-bubble {
+  background:#eaeaea;
+  color:#111;
+  float:left;
+  border-top-left-radius:0;
+}
+
+.right-bubble {
+  background:#111;
+  color:white;
+  float:right;
+  border-top-right-radius:0;
+}
+
+/* 飄浮泡泡 */
+.floating-bubble {
+  position: fixed;
+  padding:8px 14px;
+  border-radius:30px;
+  font-size:13px;
+  background:#111;
+  color:white;
+  z-index:2;
+  opacity:0.85;
+  pointer-events:none;
+  animation: floatBubble 6s ease-in-out forwards;
+}
+
+.left-float { left: 25px; }
+.right-float { right: 25px; }
+
+@keyframes floatBubble {
+  0% { transform: translateY(0) scale(0.9); opacity:0; }
+  10% { opacity:1; }
+  100% { transform: translateY(-350px) scale(1); opacity:0; }
+}
+
+/* 訊息字 */
+.msg { 
+  font-size:13px; 
+  margin-top:5px; 
+  color:#666;
+}
+</style>
+
+</head>
+<body>
+
+<div class="header">
+  <h2>和好券系統</h2>
+  <p>🐧CJT券數量: <span id="myCount">0</span> | 🐕CZI券數量: <span id="otherCount">0</span></p>
+</div>
+
+<div class="container" style="flex-direction:column; align-items:center; gap:20px;">
+  
+  <div class="container">
+    <div class="voucher-box">
+      <h2>🐧的操作</h2>
+      <button id="useBtn">使用一張券</button><br>
+      <input type="number" id="addAmount" placeholder="數量" min="1">
+      <button id="addBtn">送給對方</button><br>
+      <p id="msg" class="msg"></p>
+    </div>
+
+    <div class="voucher-box">
+      <h2>🐕操作</h2>
+      <button id="useBtn2">使用一張券</button><br>
+      <input type="number" id="addAmount2" placeholder="數量" min="1">
+      <button id="addBtn2">送給對方</button><br>
+      <p id="msg2" class="msg"></p>
+    </div>
+  </div>
+
+  <!-- 好的互動專區 -->
+  <!-- 好的互動專區 -->
+<div class="voucher-box">
+  <h3>最近三次好的互動</h3>
+  <div class="good-input-container">
+    <input type="text" id="goodMsgInput" placeholder="輸入好的互動內容">
+    <button id="goodBtn1">🐧</button>
+    <button id="goodBtn2">🐕</button>
+  </div>
+  <div id="goodList" style="max-height:150px; overflow-y:auto;"></div>
+</div>
+
+
+  <!-- 最近操作專區 -->
+  <div class="voucher-box">
+    <h3>最近的操作紀錄</h3>
+    <div id="log" style="max-height:150px; overflow-y:auto;"></div>
+  </div>
+
+</div>
+
+
+<script>
+const sheetUrl = "https://script.google.com/macros/s/AKfycbyOwUZNZ-UYcu3aKxI_s3jJ6aQlwGsL9yPStS8fWZJfZVnadEtWsBar-0TEL6WsOx19bg/exec"; // 替換成你的 Web App URL
+const myName = "CJT";
+const otherName = "CZI";
+
+const myCountEl = document.getElementById("myCount");
+const otherCountEl = document.getElementById("otherCount");
+const msgEl = document.getElementById("msg");
+const useBtn = document.getElementById("useBtn");
+const addBtn = document.getElementById("addBtn");
+const addAmountEl = document.getElementById("addAmount");
+
+const msgEl2 = document.getElementById("msg2");
+const useBtn2 = document.getElementById("useBtn2");
+const addBtn2 = document.getElementById("addBtn2");
+const addAmountEl2 = document.getElementById("addAmount2");
+
+const goodInputEl = document.getElementById("goodMsgInput");
+const goodBtn1 = document.getElementById("goodBtn1");
+const goodBtn2 = document.getElementById("goodBtn2");
+
+const logEl = document.getElementById("log");
+const goodListEl = document.getElementById("goodList");
+
+// ---------- 基本功能 ----------
+async function refreshCounts(){
+  const res = await fetch(sheetUrl+"?action=get");
+  const data = await res.json();
+  myCountEl.textContent = data[myName] || 0;
+  otherCountEl.textContent = data[otherName] || 0;
+  fetchLog();
+  fetchGood();
+}
+
+useBtn.addEventListener("click", async ()=>{
+  const res = await fetch(sheetUrl+`?action=use&user=${encodeURIComponent(myName)}`);
+  const data = await res.json();
+  msgEl.textContent = data.status==="ok"?"✅ 使用成功！":"❌ 沒有足夠券！";
+  refreshCounts();
+});
+
+addBtn.addEventListener("click", async ()=>{
+  const amount = Number(addAmountEl.value);
+  if(amount<=0) return;
+  const res = await fetch(sheetUrl+`?action=add&user=${encodeURIComponent(otherName)}&amount=${amount}`);
+  const data = await res.json();
+  msgEl.textContent = data.status==="ok"?`✅ 已送 ${amount} 張券給 ${otherName}`:"❌ 發生錯誤";
+  addAmountEl.value="";
+  refreshCounts();
+});
+
+useBtn2.addEventListener("click", async ()=>{
+  const res = await fetch(sheetUrl+`?action=use&user=${encodeURIComponent(otherName)}`);
+  const data = await res.json();
+  msgEl2.textContent = data.status==="ok"?"✅ 使用成功！":"❌ 沒有足夠券！";
+  refreshCounts();
+});
+
+addBtn2.addEventListener("click", async ()=>{
+  const amount = Number(addAmountEl2.value);
+  if(amount<=0) return;
+  const res = await fetch(sheetUrl+`?action=add&user=${encodeURIComponent(myName)}&amount=${amount}`);
+  const data = await res.json();
+  msgEl2.textContent = data.status==="ok"?`✅ 已送 ${amount} 張券給 ${myName}`:"❌ 發生錯誤";
+  addAmountEl2.value="";
+  refreshCounts();
+});
+
+// 好互動功能
+goodBtn1.addEventListener("click", async ()=>{
+  const msg = goodInputEl.value.trim();
+  if(!msg) return;
+  await fetch(sheetUrl+`?action=good&user=${encodeURIComponent(myName)}&message=${encodeURIComponent(msg)}`);
+  goodInputEl.value="";
+  refreshCounts();
+});
+goodBtn2.addEventListener("click", async ()=>{
+  const msg = goodInputEl.value.trim();
+  if(!msg) return;
+  await fetch(sheetUrl+`?action=good&user=${encodeURIComponent(otherName)}&message=${encodeURIComponent(msg)}`);
+  goodInputEl.value="";
+  refreshCounts();
+});
+
+// 取得操作紀錄
+async function fetchLog(){
+  const res = await fetch(sheetUrl+"?action=getLog");
+  const data = await res.json();
+  logEl.innerHTML="";
+  data.slice(-10).reverse().forEach(item=>{
+    const div=document.createElement("div");
+    div.className="log-item";
+    div.textContent=`${item.time} | ${item.user} | ${item.action} | ${item.amount}`;
+    logEl.appendChild(div);
+  });
+}
+
+// 取得最近三次好互動
+async function fetchGood(){
+  const res = await fetch(sheetUrl+"?action=getGood");
+  const data = await res.json();
+  goodListEl.innerHTML="";
+  data.slice(-3).reverse().forEach(item=>{
+    const div=document.createElement("div");
+    div.className="good-item";
+    div.textContent=`${item.time} | ${item.user}: ${item.message}`;
+    goodListEl.appendChild(div);
+  });
+}
+//泡泡
+
+// 模擬最近三次好的互動陣列
+let goodHistory = []; // {user: "CJT"/"CZI", msg:"文字"} 
+
+function renderGoodHistory() {
+  goodListEl.innerHTML = "";
+  const last3 = goodHistory.slice(-3); // 取最後三筆
+  last3.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "good-bubble " + (item.user === "CJT" ? "left-bubble" : "right-bubble");
+    div.textContent = item.msg + ` (${item.user})`;
+    goodListEl.appendChild(div);
+  });
+  goodListEl.scrollTop = goodListEl.scrollHeight; // 自動捲到底
+}
+
+// 點按誰寫
+goodBtn1.addEventListener("click", ()=>{
+  const val = goodInputEl.value.trim();
+  if(!val) return;
+  goodHistory.push({user:"CJT", msg: val});
+  goodInputEl.value = "";
+  renderGoodHistory();
+});
+
+goodBtn2.addEventListener("click", ()=>{
+  const val = goodInputEl.value.trim();
+  if(!val) return;
+  goodHistory.push({user:"CZI", msg: val});
+  goodInputEl.value = "";
+  renderGoodHistory();
+});
+
+refreshCounts();
+function addFloatingBubble(user, msg) {
+  const bubble = document.createElement("div");
+  bubble.className = "floating-bubble " + (user==="CJT" ? "left-float" : "right-float");
+  bubble.textContent = msg;
+
+  document.body.appendChild(bubble);
+
+  // 6秒後自動消失
+  setTimeout(()=>document.body.removeChild(bubble), 6000);
+}
+
+// 使用示範：按鈕或新增互動時呼叫
+goodBtn1.addEventListener("click", ()=>{
+  const val = goodInputEl.value.trim();
+  if(!val) return;
+  goodHistory.push({user:"CJT", msg: val});
+  goodInputEl.value = "";
+  renderGoodHistory(); // 保留專區顯示
+  addFloatingBubble("CJT", val);
+});
+
+goodBtn2.addEventListener("click", ()=>{
+  const val = goodInputEl.value.trim();
+  if(!val) return;
+  goodHistory.push({user:"CZI", msg: val});
+  goodInputEl.value = "";
+  renderGoodHistory();
+  addFloatingBubble("CZI", val);
+});
+
+</script>
+
+</body>
+</html>

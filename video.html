@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>生日快樂</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Noto Serif TC", "Microsoft JhengHei", serif;
+      background-color: #111;
+      color: #f5f5f5;
+      text-align: center;
+    }
+
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 16px;
+      letter-spacing: 2px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.8;
+      opacity: 0.9;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 12px 28px;
+      font-size: 16px;
+      border: 1px solid #fff;
+      background: none;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 30px;
+    }
+
+    button:hover {
+      background-color: #fff;
+      color: #111;
+    }
+
+    video {
+      width: 90%;
+      max-width: 720px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+
+    .small {
+      font-size: 14px;
+      opacity: 0.7;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 開場 -->
+  <section>
+    <h1>生日快樂 🎂</h1>
+    <p>
+      Happy Birthday<br>
+      給那個讓我變好的人
+    </p>
+    <button onclick="document.getElementById('video').scrollIntoView({behavior:'smooth'})">
+      開始 ▶
+    </button>
+  </section>
+
+  <!-- 影片 -->
+  <section id="video">
+    <p>我想把這 37 秒，留在這裡</p>
+    <video controls>
+      <source src="video.mov" type="video/mp4">
+      你的瀏覽器不支援影片播放
+    </video>
+    <p class="small">看完後，繼續往下 👇</p>
+  </section>
+
+  <!-- 結尾 -->
+  <section>
+    <p>
+      謝謝你一直都在<br>
+      也謝謝你成為我很重要的人
+    </p>
+    <p class="small">
+      這個網站，只為你存在
+    </p>
+  </section>
+
+</body>
+</html>

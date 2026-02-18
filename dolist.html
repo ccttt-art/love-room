@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Our List</title>
+
+<style>
+body{
+  background:#111;
+  color:white;
+  font-family: "Helvetica Neue", sans-serif;
+  margin:0;
+  padding:40px;
+}
+
+h1{
+  font-weight:300;
+  letter-spacing:2px;
+}
+
+button{
+  background:white;
+  color:black;
+  border:none;
+  padding:6px 12px;
+  margin-left:5px;
+  cursor:pointer;
+}
+
+input{
+  padding:6px;
+  border:none;
+  outline:none;
+}
+
+.section{
+  margin-top:40px;
+}
+
+.card{
+  border-bottom:1px solid #333;
+  padding:10px 0;
+  display:flex;
+  justify-content:space-between;
+}
+
+.done{
+  text-decoration: line-through;
+  opacity:0.5;
+}
+
+.nav{
+  margin-top:20px;
+  cursor:pointer;
+  opacity:0.6;
+}
+
+.nav:hover{
+  opacity:1;
+}
+
+.time{
+  font-size:12px;
+  opacity:0.6;
+}
+</style>
+</head>
+
+<body>
+
+<h1>OUR LIST</h1>
+
+<div>
+  <input id="newThing" placeholder="write something we’ll do">
+  <button onclick="addThing()">ADD</button>
+</div>
+
+<div class="nav" onclick="togglePage()">View Completed</div>
+
+<div id="mainPage" class="section"></div>
+
+<div id="recordPage" class="section" style="display:none;"></div>
+
+<script>
+const API = "https://script.google.com/macros/s/AKfycbwsjVP342_PsOXrfNPsMI5NZ7wGfVdzD-m3b4jIx712CfQfWC2FyxJBEza2XKzUQr6i/exec";
+let showingRecord = false;
+
+function load(){
+  fetch(API)
+  .then(res=>res.json())
+  .then(data=>{
+    const main = document.getElementById("mainPage");
+    const record = document.getElementById("recordPage");
+    main.innerHTML="";
+    record.innerHTML="";
+
+    let completedCount=0;
+
+    data.forEach(row=>{
+      const id=row[0];
+      const thing=row[1];
+      const done=row[2];
+      const time=row[3];
+
+      if(!done){
+        const div=document.createElement("div");
+        div.className="card";
+        div.innerHTML=`
+          <div>${thing}</div>
+          <div><input type="checkbox" onclick="doneItem(${id})"></div>
+        `;
+        main.appendChild(div);
+      }
+
+      if(done){
+        completedCount++;
+        const div=document.createElement("div");
+        div.className="card done";
+        div.innerHTML=`
+          <div>
+            ${thing}
+            <div class="time">${new Date(time).toLocaleString()}</div>
+          </div>
+        `;
+        record.appendChild(div);
+      }
+    });
+
+    main.insertAdjacentHTML("beforeend",
+      `<div style="margin-top:20px;opacity:0.6;">Completed ${completedCount} things</div>`
+    );
+  });
+}
+
+function addThing(){
+  const thing=document.getElementById("newThing").value;
+  if(!thing) return;
+  fetch(API,{
+    method:"POST",
+    body:JSON.stringify({action:"add",thing})
+  }).then(()=>{
+    document.getElementById("newThing").value="";
+    load();
+  });
+}
+
+function doneItem(id){
+  fetch(API,{
+    method:"POST",
+    body:JSON.stringify({action:"done",id})
+  }).then(load);
+}
+
+function togglePage(){
+  showingRecord=!showingRecord;
+  document.getElementById("mainPage").style.display=showingRecord?"none":"block";
+  document.getElementById("recordPage").style.display=showingRecord?"block":"none";
+}
+
+load();
+</script>
+
+</body>
+</html>
