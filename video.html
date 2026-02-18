@@ -4,65 +4,88 @@
   <meta charset="UTF-8">
   <title>生日快樂</title>
   <style>
-    body {
-      margin: 0;
-      font-family: "Noto Serif TC", "Microsoft JhengHei", serif;
-      background-color: #111;
-      color: #f5f5f5;
-      text-align: center;
-    }
+  body {
+    margin: 0;
+    font-family: "Noto Serif TC", "Microsoft JhengHei", serif;
+    background-color: #111;
+    color: #f5f5f5;
+    text-align: center;
+  }
 
-    section {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 40px 20px;
-      box-sizing: border-box;
-    }
+  section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    box-sizing: border-box;
+  }
 
+  h1 {
+    font-size: 32px;
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.8;
+    opacity: 0.9;
+  }
+
+  button {
+    margin-top: 30px;
+    padding: 12px 28px;
+    font-size: 16px;
+    border: 1px solid #fff;
+    background: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 30px;
+  }
+
+  button:hover {
+    background-color: #fff;
+    color: #111;
+  }
+
+  video {
+    width: 90%;
+    max-width: 720px;
+    border-radius: 12px;
+    margin-top: 20px;
+  }
+
+  .small {
+    font-size: 14px;
+    opacity: 0.7;
+    margin-top: 20px;
+  }
+
+  /* 手機響應式 */
+  @media (max-width: 600px) {
     h1 {
-      font-size: 32px;
-      margin-bottom: 16px;
-      letter-spacing: 2px;
+      font-size: 24px; /* 縮小標題 */
     }
 
     p {
-      font-size: 16px;
-      line-height: 1.8;
-      opacity: 0.9;
+      font-size: 14px; /* 縮小文字 */
+      line-height: 1.5;
     }
 
     button {
-      margin-top: 30px;
-      padding: 12px 28px;
-      font-size: 16px;
-      border: 1px solid #fff;
-      background: none;
-      color: #fff;
-      cursor: pointer;
-      border-radius: 30px;
-    }
-
-    button:hover {
-      background-color: #fff;
-      color: #111;
+      padding: 10px 20px; /* 按鈕縮小 */
+      font-size: 14px;
+      border-radius: 10px; /* 可以改成方形圓角少一點 */
     }
 
     video {
-      width: 90%;
-      max-width: 720px;
-      border-radius: 12px;
-      margin-top: 20px;
+      width: 100%; /* 影片佔滿螢幕寬度 */
     }
+  }
+</style>
 
-    .small {
-      font-size: 14px;
-      opacity: 0.7;
-      margin-top: 20px;
-    }
-  </style>
 </head>
 <body>
 
