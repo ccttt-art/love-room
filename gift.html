@@ -3,6 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Our Wishlist</title>
 
 <style>
@@ -98,45 +99,48 @@ li{
     font-size:12px;
     padding:4px 8px;
 }
-/* 手機版調整 */
-@media screen and (max-width: 600px) {
+/* 原本左右排列 */
+.columns {
+    display: flex;
+    gap: 40px;
+    margin-top: 30px;
+}
+
+/* 響應式：螢幕寬度小於 600px 時 */
+@media (max-width: 600px) {
     .container {
-        padding: 20px;
-        margin: 0 10px;
+        padding: 15px; /* 原本 20~30，縮小內距 */
     }
 
     .columns {
-        flex-direction: column;
-        gap: 20px;
+        flex-direction: column; /* 上下排列 */
+        gap: 12px;              /* 上下間距縮小 */
+    }
+
+    .column {
+        width: 100%;            /* 每欄滿寬，但不要留太多空白 */
     }
 
     input {
-        font-size: 14px;
-        padding: 8px;
+        font-size: 13px;       /* 字體略小 */
+        padding: 6px;          /* 高度縮小 */
     }
 
     button {
-        font-size: 12px;
-        padding: 8px 10px;
+        font-size: 11px;       /* 字體小 */
+        padding: 6px 8px;      /* 高度縮小 */
     }
 
     li {
-        font-size: 14px;
+        font-size: 10px;       /* 列表文字小一點 */
+        margin: 8px 0;         /* 列表間距縮小 */
     }
 
-    h2 {
-        font-size: 20px;
-    }
-
-    h3 {
-        font-size: 16px;
-    }
-
-    p {
-        font-size: 12px;
+    .small-btn {
+        font-size: 10px;
+        padding: 2px 6px;
     }
 }
-
 
 </style>
 
