@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Our List</title>
 
 <style>
@@ -62,6 +63,31 @@ input{
 .time{
   font-size:12px;
   opacity:0.6;
+}
+/* 響應式設定 */
+@media screen and (max-width:480px){
+  body{
+    padding:10px;
+  }
+
+  h1{
+    font-size:18px;
+  }
+
+  .card{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .card input[type="checkbox"]{
+    margin-top:5px;
+    transform: scale(1.2);
+  }
+
+  div > input, div > button{
+    font-size:13px;
+    padding:6px 8px;
+  }
 }
 </style>
 </head>
