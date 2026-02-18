@@ -182,6 +182,55 @@ input[type="text"] {
   margin-top:5px; 
   color:#666;
 }
+/* 手機、平板響應 */
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column !important; /* 上下排列 */
+    gap: 15px;
+    align-items: center;
+  }
+
+  .voucher-box {
+    width: 90% !important; /* 卡片自適應螢幕 */
+    padding: 20px;
+  }
+
+  input[type="number"], input[type="text"] {
+    width: 100% !important; /* 輸入框滿版 */
+    margin-right:0;
+    margin-bottom:8px;
+  }
+
+  .good-input-container {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .good-input-container button {
+    width: 100%;
+    padding:6px 12px;  /* 按鈕變小 */
+    font-size:13px;    /* 字體也縮小 */
+  }
+
+  button {
+    padding:6px 12px;  /* 所有按鈕縮小 */
+    font-size:13px;
+  }
+}
+
+/* 更小手機 */
+@media screen and (max-width: 480px) {
+  h2, h3 {
+    font-size: 20px;
+  }
+  .header h2 {
+    font-size: 22px;
+  }
+  .header p {
+    font-size: 14px;
+  }
+}
+
 </style>
 
 </head>
