@@ -1,21 +1,4 @@
-<div id="maintenance-overlay" style="
-position: fixed !important;
-top: 0 !important;
-left: 0 !important;
-width: 100vw !important;
-height: 100vh !important;
-background-color: white !important;
-z-index: 2147483647 !important;
-display: flex !important;
-flex-direction: column !important;
-justify-content: center !important;
-align-items: center !important;
-margin: 0 !important;
-padding: 0 !important;
-">
-<h1 style="color: #333; font-family: sans-serif; font-size: 32px;" > 🚧 系統維護中</h1 >
-<p style="color: #666; font-size: 18px;" > 網頁冷靜期，暫時不開放進入。</p >
-</div >
+
 body, html {
     margin: 0;
     padding: 0;
